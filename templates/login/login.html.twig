@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="d-flex align-items-center justify-content-center vh-100">
+        <div class="container-sm">
+            <div class="row">
+                <div class="col col-12">
+                    <form method="post">
+                        {% if error %}
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+
+                        {% if app.user %}
+                            <div class="mb-3">
+                                Du bist als {{ app.user.userIdentifier }} eingeloggt, <a href="{{ path('app_logout') }}">Logout</a>
+                            </div>
+                        {% endif %}
+
+                        <h1 class="h3 mb-3 font-weight-normal">Anmelden</h1>
+                        <label for="username">Email</label>
+                        <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
+                        <label for="password">Password</label>
+                        <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+                        <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+
+                        <button class="btn btn-primary mt-3" type="submit">OK</button>
+                        {{ include('oauth2.html.twig') }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

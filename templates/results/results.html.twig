@@ -1,0 +1,23 @@
+{% extends 'base_loggedin.html.twig' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-6">
+            {{ include('results/map.html.twig', {map: map, search: search}) }}
+        </div>
+        <!-- /.col-md-6 -->
+        <div class="col-lg-6">
+        </div>
+        <!-- /.col-md-6 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            {{ include('results/youtube.html.twig', {videos: youtube, search: search}) }}
+        </div>
+        <!-- /.col-md-6 -->
+    </div>
+    <!-- /.row -->
+
+{% endblock %}

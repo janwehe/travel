@@ -1,0 +1,49 @@
+<div class="card card-primary card-outline">
+    <div class="card-header">
+        <h5 class="m-0">Map für {{ search }}</h5>
+    </div>
+    <div class="card-body">
+        <div style="width: auto; height: 600px" id="mapContainer"></div>
+    </div>
+</div>
+
+<script src="https://js.api.here.com/v3/3.1/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://js.api.here.com/v3/3.1/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://js.api.here.com/v3/3.1/mapsjs-ui.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+
+{% if map.items is defined and map.items|length > 0 %}
+
+    <script type="text/javascript" charset="utf-8">
+        var platform = new H.service.Platform({
+            'apikey': '{{ mapApiKeyJs }}'
+        });
+
+        // Obtain the default map types from the platform object:
+        var defaultLayers = platform.createDefaultLayers();
+
+        // Instantiate (and display) a map object:
+        var map = new H.Map(
+            document.getElementById('mapContainer'),
+            defaultLayers.vector.normal.map,
+            {
+                zoom: 12,
+                center: {
+                    lat: {{ map.items[0].position.lat }},
+                    lng: {{ map.items[0].position.lng }}
+                }
+            }
+        );
+
+        // Create the default UI:
+        const ui = H.ui.UI.createDefault(map, defaultLayers, `de-DE`);
+
+        // Enable the event system on the map instance:
+        var mapEvents = new H.mapevents.MapEvents(map);
+
+        // Instantiate the default behavior, providing the mapEvents object:
+        var behavior = new H.mapevents.Behavior(mapEvents);
+    </script>
+
+{% endif %}

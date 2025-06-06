@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="d-flex align-items-center justify-content-center vh-100">
+        <div class="container-sm">
+            <div class="row">
+                <div class="col col-12">
+                    <h1>Registrieren</h1>
+
+                    {{ form_errors(form) }}
+
+                    {{ form_start(form) }}
+                        {{ form_row(form.email) }}
+                        {{ form_row(form.plainPassword) }}
+
+                        <button type="submit" class="btn btn-primary">OK</button>
+                    {{ form_end(form) }}
+
+                    {{ include('oauth2.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

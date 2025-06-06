@@ -1,0 +1,31 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+
+home:
+    path: /
+    controller: App\Controller\SearchController::show
+
+login:
+    path: /login
+    controller: App\Controller\LoginController::login
+
+logout:
+    path: /logout
+    controller: App\Controller\LoginController::logout
+
+register:
+    path: /register
+    controller: App\Controller\RegistrationController::register
+
+register_oauth2:
+    path: /register/oauth2/{service}
+    controller: App\Controller\RegistrationController::oauth2
+
+search_results:
+    path: /search/results
+    controller: App\Controller\ResultsController::show
+    methods: POST

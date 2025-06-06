@@ -1,0 +1,18 @@
+<div class="row mt-5">
+    <div class="col col-md-2 text-center">
+        <a href="{{ path('register_oauth2', {'service': 'google'}) }}">
+            <img src="{{ asset('img/icon-google.png') }}" />
+            <p>
+                <button class="btn btn-block btn-dark mt-2">Fortfahren mit Google</button>
+            </p>
+        </a>
+    </div>
+    <div class="col col-md-2 text-center">
+        <a href="{{ path('register_oauth2', {'service': 'github'}) }}">
+            <img src="{{ asset('img/icon-github.png') }}" />
+            <p>
+                <button class="btn btn-block btn-dark mt-2">Fortfahren mit GitHub</button>
+            </p>
+        </a>
+    </div>
+</div>
