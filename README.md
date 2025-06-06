@@ -6,7 +6,7 @@ Es handelt sich bei diesem Code um eine Beispiel-Anwendung, die Reiseinformation
 - symfony 7 (Doctrine inkl. Migrations, Twig)
 - MySQL 8.3
 - Javascript
-- [HERE Maps](https://www.here.com)
+- [HERE Maps REST-API & API for JS](https://www.here.com)
 - [YouTube Data API](https://developers.google.com/youtube/v3)
 - [AdminLTE 3](https://adminlte.io/)
 
