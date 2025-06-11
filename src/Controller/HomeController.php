@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 
 class HomeController extends AbstractController
 {
@@ -11,7 +12,7 @@ class HomeController extends AbstractController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function home()
+    public function home(): Response
     {
         return $this->render('search/search.html.twig');
     }

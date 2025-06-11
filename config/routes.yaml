@@ -29,3 +29,13 @@ search_results:
     path: /search/results
     controller: App\Controller\ResultsController::show
     methods: POST
+
+search_results_load:
+    path: /search/results/{id}
+    controller: App\Controller\ResultsController::load
+    requirements:
+        id: '\d+'
+
+profile:
+    path: /profile
+    controller: App\Controller\ProfileController::show

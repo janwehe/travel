@@ -1,0 +1,47 @@
+{% extends 'base_loggedin.html.twig' %}
+
+{% block content %}
+
+    <div class="row mb-5">
+        <div class="col-lg-1">
+            <strong>E-Mail:</strong>
+        </div>
+        <div class="col-lg-2">
+            {{ app.user.email }}
+        </div>
+    </div>
+
+    {% if locations != null %}
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="border-top-0" scope="col">Reiseziel</th>
+                    <th class="border-top-0" scope="col">Datum</th>
+                    <th class="border-top-0" scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+
+        {% for location in locations %}
+
+            <tr>
+                <td>
+                    {{ location.name }}
+                </td>
+                <td>
+                    {{ location.created|date('d.m.Y') }}
+                </td>
+                <td>
+                    <a href="{{ path('search_results_load', {'id': location.id }) }}" class="btn btn-success">ansehen</a>
+                </td>
+            </tr>
+
+        {% endfor %}
+
+            </tbody>
+        </table>
+
+    {% endif %}
+
+{% endblock %}

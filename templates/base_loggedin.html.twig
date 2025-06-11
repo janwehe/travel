@@ -34,6 +34,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ path('profile') }}" class="nav-link{% if app.current_route == 'profile' %} active{% endif %}">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>Profil</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ path('logout') }}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>Logout</p>
