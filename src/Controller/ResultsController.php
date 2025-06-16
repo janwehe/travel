@@ -11,15 +11,20 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ResultsController extends AbstractController
 {
+    public function __construct(
+        private EntityManagerInterface $entityManager
+    )
+    {
+    }
+
     /**
      * Shows the results of the search
      *
      * @param Request $request
      * @param SearchResultsCollector $searchResultsCollector
-     * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    public function show(Request $request, SearchResultsCollector $searchResultsCollector, EntityManagerInterface $entityManager): Response
+    public function show(Request $request, SearchResultsCollector $searchResultsCollector): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
@@ -32,15 +37,7 @@ class ResultsController extends AbstractController
         $results = $searchResultsCollector->collect($search);
 
         // save search in database
-        $location = new Location();
-        $location->setUser($this->getUser());
-        $location->setName($search);
-        $location->setMaps([$results['map']]);
-        $location->setYoutube([$results['youtube']]);
-        $location->setCreated(new \DateTime());
-
-        $entityManager->persist($location);
-        $entityManager->flush();
+        $this->save($search, $results);
 
         return $this->renderResults($search, $results);
     }
@@ -49,10 +46,9 @@ class ResultsController extends AbstractController
      * Loads a previously saved location
      *
      * @param int $id
-     * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    public function load(int $id, EntityManagerInterface $entityManager): Response
+    public function load(int $id): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
@@ -60,19 +56,37 @@ class ResultsController extends AbstractController
         $results = ['map' => '', 'youtube' => ''];
 
         // use location id and user id to be safe the user only loads their own search results
-        $location = $entityManager->getRepository(Location::class)->findOneBy([
+        $location = $this->entityManager->getRepository(Location::class)->findOneBy([
             'id' => $id,
             'user' => $this->getUser()
         ]);
 
         /** @var Location $location */
         if ($location) {
+            $results = $location->getResultData();
             $search = $location->getName();
-            $results['map'] = $location->getMaps()[0];
-            $results['youtube'] = $location->getYoutube()[0];
         }
 
         return $this->renderResults($search, $results);
+    }
+
+    /**
+     * Saves the search result data in the database
+     *
+     * @param string $search
+     * @param array $results
+     * @return void
+     */
+    private function save(string $search, array $results): void
+    {
+        $location = new Location();
+        $location->setUser($this->getUser());
+        $location->setName($search);
+        $location->setResultData($results);
+        $location->setCreated(new \DateTime());
+
+        $this->entityManager->persist($location);
+        $this->entityManager->flush();
     }
 
     /**
