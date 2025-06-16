@@ -21,3 +21,6 @@ Es handelt sich bei diesem Code um eine Beispiel-Anwendung, die Reiseinformation
 
 ## Übersicht über die Reiseinformationen nach der Suche
 ![travel_app4](https://github.com/user-attachments/assets/e834ea23-805b-48e6-87a2-c68ed49dc0ff)
+
+## Suchergebnisse werden gespeichert und können später erneut geladen werden
+![travel_app5](https://github.com/user-attachments/assets/9cd4aea4-3301-48e5-b5ae-b23f0a6481b8)
